@@ -6,7 +6,7 @@ var readChunk = require('read-chunk');
 var imageType = require('image-type');
 var Images  = require('../models/images');
 var helper = require('../helper/helper');
-
+var rh = require('../helper/response')
 
 router.get('/', function(request, response) {
   res.render('index', { title: 'MediaBox' });
@@ -26,34 +26,17 @@ router.get('/:id', function(request, response) {
 router.delete('/:id', function(request, response){
   Images.findById(request.params.id, function(err, img) {
     if ( img == null || err) {
-      response.json({
-        "error_code": "100",
-        "error_message": "no object id",
-        "date_time": helper.getTimeStamp()
-      });
+      rh.renderMsg(response,"no object id");
     } else {
-      console.log("public/uploads/"+img.name);
       fs.remove("public/uploads/"+img.name, function(err) {
         if (err) {
-          response.json({
-            "error_code": "100",
-            "error_message": err,
-            "date_time": helper.getTimeStamp()
-          });
+          rh.renderMsg(response,err);
         } else {
           Images.remove({ _id: request.params.id }, function(err) {
             if (err) {
-              response.json({
-                "error_code": "100",
-                "error_message": "error delete db",
-                "date_time": helper.getTimeStamp()
-              });
+              rh.renderMsg(response,"error delete db");
             } else {
-              response.json({
-                "error_code": "0",
-                "error_message": "successfully deleted",
-                "date_time": helper.getTimeStamp()
-              });
+              rh.renderMsg(response, "successfully deleted");
             }
           });
         }
@@ -74,12 +57,7 @@ router.post("/", function(request, response){
     // write file
     fs.writeFile("public/uploads/"+fileName, decodedImage, function (err) {
       if (err) {
-        console.log(err);
-        response.json({
-          "error_code": "100",
-          "error_message": err,
-          "date_time": helper.getTimeStamp()
-        });
+        rh.renderMsg(response,err);
       } else {
 
         // get dimesions
@@ -90,18 +68,14 @@ router.post("/", function(request, response){
 
         // check file ext
         if (extAllow.indexOf(imgType) == -1 ) {
-          response.json({
-            "error_code": "104",
-            "error_message": "ext not allow",
-            "date_time": helper.getTimeStamp()
-          });
+          rh.renderMsg(response, "ext not allow");
           return;
         }
 
         // rename file
         fs.rename("public/uploads/"+fileName, "public/uploads/"+fileName+"."+imgType, function(err) {
           if ( err ) {
-            console.log('ERROR: ' + err);
+            rh.renderMsg(response,err);
           } else {
             fs.chmodSync("public/uploads/"+fileName+"."+imgType, 0777);
             var images = new Images({
@@ -119,17 +93,11 @@ router.post("/", function(request, response){
 
             images.save(function (err,resSave) {
               if (err) {
-                console.log('error');
-                response.json({
-                  "error_code": "102",
-                  "error_message": "save to mongodb error",
-                  "date_time": helper.getTimeStamp()
-                });
+                rh.renderMsg(response,err);
               } else {
                 var r = resSave.toObject();
                 delete r.name;
                 response.json(r);
-                console.log(r);
               }
             });
           }
@@ -137,13 +105,11 @@ router.post("/", function(request, response){
       }
     });
     // end write file
+  } else if ( 'images' in request.body ) {
+
   } else {
     // response upload error
-    response.json({
-      "error_code": "101",
-      "error_message": "require images base64",
-      "date_time": helper.getTimeStamp()
-    });
+    rh.renderMsg(response,"require images base64");
   }
 });
 

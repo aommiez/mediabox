@@ -19,6 +19,7 @@
     "image-size" : "*",
     "read-chunk" : "*",
     "file-size" : "*",
-    "fs-extra" : "*"
+    "fs-extra" : "*",
+    "trycatch" : "*"
   }
 }
