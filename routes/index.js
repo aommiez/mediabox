@@ -7,13 +7,15 @@ var imageType = require('image-type');
 var Images  = require('../models/images');
 var helper = require('../helper/helper');
 var rh = require('../helper/response')
+var apicache = require('apicache').options({ debug: true }).middleware;
+
 
 router.get('/', function(request, response) {
-  res.render('index', { title: 'MediaBox' });
-  console.log("GET");
+  response.render('index', { title: 'MediaBox' });
+  response.send("welcome to media box");
 });
 
-router.get('/:id', function(request, response) {
+router.get('/:id/info', apicache('5 minutes'), function(request, response) {
   Images.findById(request.params.id, function(err, img) {
     if (err) {
       response.send(err);

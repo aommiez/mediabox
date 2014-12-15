@@ -60,6 +60,10 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
-
+/*
+var CronJob = require('cron').CronJob;
+new CronJob('* * * * * *', function(){
+    console.log('You will see this message every second');
+}, null, true, "Asia/Bangkok");
+*/
 module.exports = app;
