@@ -20,6 +20,8 @@
     "read-chunk" : "*",
     "file-size" : "*",
     "fs-extra" : "*",
-    "trycatch" : "*"
+    "trycatch" : "*",
+    "cron" : "*",
+    "time" : "*"
   }
 }
