@@ -1,0 +1,18 @@
+{
+  "name": "MediaBox web API Documentation",
+  "version": "1.0.0",
+  "description": "server strore images , video file for share fast ",
+  "url" : "http://110.164.70.60:3000",
+  "header": {
+    "title": "Hi ! MediaBox web API",
+    "filename": "header.md"
+  },
+
+  "footer": {
+    "title": "Thanks :)",
+    "filename": "footer.md"
+  },
+  "order": [
+    "Images"
+  ]
+}
