@@ -193,6 +193,8 @@ router.get('/:id/info', apicache('60 minutes'), function (request, response) {
         }
     });
 });
+
+
 /**
  * @api {delete} /:id Delete Images
  * @apiName DeleteImages
