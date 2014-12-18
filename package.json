@@ -23,6 +23,7 @@
     "trycatch" : "*",
     "cron" : "*",
     "time" : "*",
-    "apicache" : "*"
+    "apicache" : "*",
+    "mongoose-paginate": "*"
   }
 }

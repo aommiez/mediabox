@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost/mediabox');
 
 
 var routes = require('./routes/index');
-
+var admin = require('./routes/admin');
 
 var app = express();
 
@@ -28,6 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use('/', routes);
+app.use('/admin', admin);
 
 
 // catch 404 and forward to error handler

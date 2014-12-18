@@ -11,9 +11,140 @@ var apicache = require('apicache').options({debug: true}).middleware;
 var lwip = require('lwip');
 
 router.get('/', function (request, response) {
-    response.render('index', {title: 'welcome to media box'});
-    //response.send("welcome to media box");
+    response.render('index', {title: 'Welcome to Media Box',});
 });
+
+
+/**
+ * @api {get} /list Get images List
+ * @apiName GetImagesList
+ * @apiGroup Images
+ * @apiVersion 1.0.0
+ * @apiDescription Request images List
+ * default pages = 1 , limit = 10
+ *
+ *
+ *
+ * @apiSuccess {String} page_count page count results
+ * @apiSuccess {Object} data data list object
+ * @apiSuccess {String} data.name images file name
+ * @apiSuccess {String} data.create_date timestamp create images
+ * @apiSuccess {Object} data.image_info  Images data (example for an Object)
+ * @apiSuccess {String} data.image_info.type Images type
+ * @apiSuccess {Object} data.image_info.dimensions Images dimensions data
+ * @apiSuccess {String} data.images_info.dimensions.width Images Width
+ * @apiSuccess {String} data.images_info.dimensions.height Images Height
+ * @apiSuccess {String} next link next
+ * @apiSuccess {String} prev link prev
+ */
+router.get('/list', function (request, response) {
+    var pages = request.params.pages;
+    var limit = request.params.limit;
+    var hostname = req.headers.host;
+    if (pages == null) {
+        pages = 1;
+    }
+    if (limit == null) {
+        limit = 10;
+    }
+    var r = [];
+    Images.paginate({}, pages, limit, function(error, pageCount, paginatedResults, itemCount) {
+        if (error) {
+            console.error(error);
+        } else {
+            r.push({page_count: pageCount});
+            r.push({data : paginatedResults});
+            if (pages < pageCount ) {
+                r.push({next:hostname+"/"+(parseInt(pages)+1) +"/"+limit});
+            }
+            if (pages > 1 ) {
+                r.push({prev:hostname+"/"+(parseInt(pages)-1) +"/"+limit});
+            }
+            //console.log('Pages:', pageCount);
+            //console.log(paginatedResults);
+            response.json(r);
+        }
+    }, { columns: 'name create_date image_info' });
+});
+
+/**
+ * @api {get} /list/:pages/:limit Get images List Custom
+ * @apiName GetImagesListCustom
+ * @apiGroup Images
+ * @apiVersion 1.0.0
+ * @apiDescription Request images List Custom pages limit
+ *
+ *
+ * @apiParam {String} pages pages item.
+ * @apiParam {String} items per page.
+ *
+ * @apiSuccess {String} page_count page count results
+ * @apiSuccess {Object} data data list object
+ * @apiSuccess {String} data.name images file name
+ * @apiSuccess {String} data.create_date timestamp create images
+ * @apiSuccess {Object} data.image_info  Images data (example for an Object)
+ * @apiSuccess {String} data.image_info.type Images type
+ * @apiSuccess {Object} data.image_info.dimensions Images dimensions data
+ * @apiSuccess {String} data.images_info.dimensions.width Images Width
+ * @apiSuccess {String} data.images_info.dimensions.height Images Height
+ * @apiSuccess {String} next link next
+ * @apiSuccess {String} prev link prev
+ *
+ * @apiSuccessExample {JSON} Success-Response:
+ * {
+ *  "page_count": 10
+ *  } ,
+ *  {
+ *  "data":
+ *  {
+ *      "_id": "548e6c1128a8b689031794d4",
+ *      "name": "kapp9yMJbxqS5UWudDltOkuSZ6kQD2yU.jpg",
+ *      "create_date": "1418619921738",
+ *      "image_info": {
+ *      "type": "jpg",
+ *      "dimensions": {
+ *          "width": 720,
+ *          "height": 480,
+ *          }
+ *      }
+ *  },{
+ *      "next": "http://localhost:3000/list/2/2"
+ *  }, {
+ *      "prev": "http://localhost:3000/list/0/2"
+ *  }
+ */
+
+router.get('/list/:pages/:limit', function (request, response) {
+    var pages = request.params.pages;
+    var limit = request.params.limit;
+    var r = [];
+    var hostname = req.headers.host;
+    if (pages == null) {
+        pages = 1;
+    }
+    if (limit == null) {
+        limit = 10;
+    }
+    Images.paginate({}, pages, limit, function(error, pageCount, paginatedResults, itemCount) {
+        if (error) {
+            console.error(error);
+        } else {
+            r.push({page_count: pageCount});
+            r.push({data : paginatedResults});
+            if (pages < pageCount ) {
+                r.push({next:hostname+"/"+(parseInt(pages)+1) +"/"+limit});
+            }
+            if (pages > 1 ) {
+                r.push({prev:hostname+"/"+(parseInt(pages)-1) +"/"+limit});
+            }
+            //console.log('Pages:', pageCount);
+            //console.log(paginatedResults);
+            response.json(r);
+        }
+    }, { columns: 'name create_date image_info' });
+});
+
+
 
 /**
  * @api {get} /:id Get images File
@@ -396,6 +527,8 @@ router.post("/", function (request, response) {
     }
 
 });
+
+
 
 
 module.exports = router;

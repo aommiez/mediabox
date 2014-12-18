@@ -3,6 +3,8 @@
  */
 
 var mongoose     = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
+mongoose.plugin(mongoosePaginate);
 var Schema       = mongoose.Schema;
 
 var ImagesSchema   = new Schema({

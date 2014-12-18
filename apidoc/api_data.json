@@ -239,6 +239,221 @@
   },
   {
     "type": "get",
+    "url": "/list",
+    "title": "Get images List",
+    "name": "GetImagesList",
+    "group": "Images",
+    "version": "1.0.0",
+    "description": "<p>Request images List default pages = 1 , limit = 10</p> ",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "page_count",
+            "description": "<p>page count results</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>data list object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.name",
+            "description": "<p>images file name</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.create_date",
+            "description": "<p>timestamp create images</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data.image_info",
+            "description": "<p>Images data (example for an Object)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.image_info.type",
+            "description": "<p>Images type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data.image_info.dimensions",
+            "description": "<p>Images dimensions data</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.images_info.dimensions.width",
+            "description": "<p>Images Width</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.images_info.dimensions.height",
+            "description": "<p>Images Height</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "next",
+            "description": "<p>link next</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "prev",
+            "description": "<p>link prev</p> "
+          }
+        ]
+      }
+    },
+    "filename": "routes/index.js",
+    "groupTitle": "Images"
+  },
+  {
+    "type": "get",
+    "url": "/list/:pages/:limit",
+    "title": "Get images List Custom",
+    "name": "GetImagesListCustom",
+    "group": "Images",
+    "version": "1.0.0",
+    "description": "<p>Request images List Custom pages limit</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pages",
+            "description": "<p>pages item.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "items",
+            "description": "<p>per page.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "page_count",
+            "description": "<p>page count results</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>data list object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.name",
+            "description": "<p>images file name</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.create_date",
+            "description": "<p>timestamp create images</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data.image_info",
+            "description": "<p>Images data (example for an Object)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.image_info.type",
+            "description": "<p>Images type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data.image_info.dimensions",
+            "description": "<p>Images dimensions data</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.images_info.dimensions.width",
+            "description": "<p>Images Width</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.images_info.dimensions.height",
+            "description": "<p>Images Height</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "next",
+            "description": "<p>link next</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "prev",
+            "description": "<p>link prev</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n \"page_count\": 10\n } ,\n {\n \"data\":\n {\n     \"_id\": \"548e6c1128a8b689031794d4\",\n     \"name\": \"kapp9yMJbxqS5UWudDltOkuSZ6kQD2yU.jpg\",\n     \"create_date\": \"1418619921738\",\n     \"image_info\": {\n     \"type\": \"jpg\",\n     \"dimensions\": {\n         \"width\": 720,\n         \"height\": 480,\n         }\n     }\n },{\n     \"next\": \"http://localhost:3000/list/2/2\"\n }, {\n     \"prev\": \"http://localhost:3000/list/0/2\"\n }",
+          "type": "JSON"
+        }
+      ]
+    },
+    "filename": "routes/index.js",
+    "groupTitle": "Images"
+  },
+  {
+    "type": "get",
     "url": "/:id",
     "title": "Get images File",
     "name": "GetImagesOrignal",
