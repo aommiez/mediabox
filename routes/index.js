@@ -40,7 +40,7 @@ router.get('/', function (request, response) {
 router.get('/list', function (request, response) {
     var pages = request.params.pages;
     var limit = request.params.limit;
-    var hostname = req.headers.host;
+    var hostname = request.headers.host;
     if (pages == null) {
         pages = 1;
     }
@@ -118,7 +118,7 @@ router.get('/list/:pages/:limit', function (request, response) {
     var pages = request.params.pages;
     var limit = request.params.limit;
     var r = [];
-    var hostname = req.headers.host;
+    var hostname = request.headers.host;
     if (pages == null) {
         pages = 1;
     }
