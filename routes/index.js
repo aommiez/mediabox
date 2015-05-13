@@ -428,20 +428,20 @@ router.post("/", function (request, response) {
                     }
 
                     // rename file
-                    fs.rename("public/uploads/" + fileName, "public/uploads/" + fileName + "." + imgType, function (err) {
+                    fs.rename("public/uploads/" + fileName, "public/uploads/" + fileName + "." + imgType.ext, function (err) {
                         if (err) {
                             rh.renderMsg(response, err);
                         } else {
-                            fs.chmodSync("public/uploads/" + fileName + "." + imgType, 0777);
+                            fs.chmodSync("public/uploads/" + fileName + "." + imgType.ext, 0777);
                             var images = new Images({
                                 base64data: request.body.images,
-                                name: fileName + "." + imgType,
+                                name: fileName + "." + imgType.ext,
                                 image_info: {
                                     dimensions: {
                                         width: dimensions.width,
                                         height: dimensions.height
                                     },
-                                    type: imgType
+                                    type: imgType.ext
                                 },
                                 create_date: helper.getTimeStamp()
                             });
@@ -487,23 +487,23 @@ router.post("/", function (request, response) {
             var extAllow = ['jpg', 'png', 'jpge', 'JPG'];
 
             // check file ext
-            if (extAllow.indexOf(imgType) == -1) {
+            if (extAllow.indexOf(imgType.ext) == -1) {
                 rh.renderMsg(response, "ext not allow");
                 return;
             }
 
-            fs.renameSync("public/uploads/" + fileName, "public/uploads/" + fileName + "." + imgType);
-            fs.chmodSync("public/uploads/" + fileName + "." + imgType, 0777);
+            fs.renameSync("public/uploads/" + fileName, "public/uploads/" + fileName + "." + imgType.ext);
+            fs.chmodSync("public/uploads/" + fileName + "." + imgType.ext, 0777);
 
             var images = new Images({
                 base64data: data[i],
-                name: fileName + "." + imgType,
+                name: fileName + "." + imgType.ext,
                 image_info: {
                     dimensions: {
                         width: dimensions.width,
                         height: dimensions.height
                     },
-                    type: imgType
+                    type: imgType.ext
                 },
                 create_date: helper.getTimeStamp()
             });
