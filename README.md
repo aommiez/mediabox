@@ -9,6 +9,10 @@
 - get images custom size
 - delete images
 
+### Next Function
+
+- Admin Manage
+
 ### Tech
 
 mediabox uses a number of open source projects to work properly:
