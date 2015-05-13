@@ -1,3 +1,12 @@
 .size15 {
     font-size:15px;
 }
+.tit {
+    font-size:15px;
+    font-weight: bolder;
+}
+.jumbotron p {
+    font-size: 15px;
+    margin-bottom : 0px;
+    font-weight : normal;
+}

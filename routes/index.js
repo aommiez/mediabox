@@ -11,7 +11,7 @@ var apicache = require('apicache').options({debug: true}).middleware;
 var lwip = require('lwip');
 
 router.get('/', function (request, response) {
-    response.render('index', {title: 'Welcome to Media Box',});
+    response.render('index');
 });
 
 
