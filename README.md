@@ -18,8 +18,8 @@ mediabox uses a number of open source projects to work properly:
 
 ### MIT License
 
-request function : aommiez@gmail.com
-
+Request function : aommiez@gmail.com
+FB Support : https://www.facebook.com/aommiez
 Copyright (c) 2013-2015 MRG
 
 Author MRG
