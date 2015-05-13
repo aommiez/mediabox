@@ -418,10 +418,11 @@ router.post("/", function (request, response) {
                     var dimensions = sizeOf("public/uploads/" + fileName);
                     // get type
                     var imgType = imageType(readChunk.sync("public/uploads/" + fileName, 0, 12));
+
                     var extAllow = ['jpg', 'png', 'jpge', 'JPG'];
 
                     // check file ext
-                    if (extAllow.indexOf(imgType) == -1) {
+                    if (extAllow.indexOf(imgType.ext) == -1) {
                         rh.renderMsg(response, "ext not allow");
                         return;
                     }
