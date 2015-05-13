@@ -48,23 +48,23 @@ router.get('/list', function (request, response) {
         limit = 10;
     }
     var r = [];
-    Images.paginate({}, pages, limit, function(error, pageCount, paginatedResults, itemCount) {
+    Images.paginate({}, pages, limit, function (error, pageCount, paginatedResults, itemCount) {
         if (error) {
             console.error(error);
         } else {
             r.push({page_count: pageCount});
-            r.push({data : paginatedResults});
-            if (pages < pageCount ) {
-                r.push({next:hostname+"/"+(parseInt(pages)+1) +"/"+limit});
+            r.push({data: paginatedResults});
+            if (pages < pageCount) {
+                r.push({next: hostname + "/" + (parseInt(pages) + 1) + "/" + limit});
             }
-            if (pages > 1 ) {
-                r.push({prev:hostname+"/"+(parseInt(pages)-1) +"/"+limit});
+            if (pages > 1) {
+                r.push({prev: hostname + "/" + (parseInt(pages) - 1) + "/" + limit});
             }
             //console.log('Pages:', pageCount);
             //console.log(paginatedResults);
             response.json(r);
         }
-    }, { columns: 'name create_date image_info' });
+    }, {columns: 'name create_date image_info'});
 });
 
 /**
@@ -108,9 +108,9 @@ router.get('/list', function (request, response) {
  *          }
  *      }
  *  },{
- *      "next": "http://localhost:3000/list/2/2"
+ *      "next": "http://apibox.co:3000/list/2/2"
  *  }, {
- *      "prev": "http://localhost:3000/list/0/2"
+ *      "prev": "http://apibox.co:3000/list/0/2"
  *  }
  */
 
@@ -125,25 +125,24 @@ router.get('/list/:pages/:limit', function (request, response) {
     if (limit == null) {
         limit = 10;
     }
-    Images.paginate({}, pages, limit, function(error, pageCount, paginatedResults, itemCount) {
+    Images.paginate({}, pages, limit, function (error, pageCount, paginatedResults, itemCount) {
         if (error) {
             console.error(error);
         } else {
             r.push({page_count: pageCount});
-            r.push({data : paginatedResults});
-            if (pages < pageCount ) {
-                r.push({next:hostname+"/"+(parseInt(pages)+1) +"/"+limit});
+            r.push({data: paginatedResults});
+            if (pages < pageCount) {
+                r.push({next: hostname + "/" + (parseInt(pages) + 1) + "/" + limit});
             }
-            if (pages > 1 ) {
-                r.push({prev:hostname+"/"+(parseInt(pages)-1) +"/"+limit});
+            if (pages > 1) {
+                r.push({prev: hostname + "/" + (parseInt(pages) - 1) + "/" + limit});
             }
             //console.log('Pages:', pageCount);
             //console.log(paginatedResults);
             response.json(r);
         }
-    }, { columns: 'name create_date image_info' });
+    }, {columns: 'name create_date image_info'});
 });
-
 
 
 /**
@@ -508,7 +507,6 @@ router.post("/", function (request, response) {
                 create_date: helper.getTimeStamp()
             });
             //console.log(images);
-
             images.save(function (err, resSave) {
                 if (err) {
                     rh.renderMsg(response, err);
@@ -527,8 +525,6 @@ router.post("/", function (request, response) {
     }
 
 });
-
-
 
 
 module.exports = router;

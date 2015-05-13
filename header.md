@@ -1,5 +1,5 @@
 ### Server Info
-- base url : http://110.164.70.60
+- base url : http://apibox.co
 - base port : 3000
 
 ### Version
